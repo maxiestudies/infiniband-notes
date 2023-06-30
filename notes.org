@@ -1,27 +1,76 @@
 * Acronyms
-  CA: channel adapter
-  HCA: Host channel adapter
-  TCA: target channel adapter
-  LRH: local router header
-  GRH: global router header
-  DLID: destination port local id
-  SLID: source port local id
   BTH: base transport header
-  IBA: infiniband architecture
-  RDMA: remote direct memory access
-  SM: subnet manager
-  PM: performance manager
-  DM: device manager
+  CA: channel adapter
   CM: communications manager
+  CQE: completion queue entry
+  DLID: destination port local id
+  DM: device manager
+  GRH: global router header
+  HCA: Host channel adapter
+  IBA: infiniband architecture
+  IPD: inter packet delay
+  LRH: local router header
   MA: management agent
   MADS: management datagrams
-  QP: queue pair
-  SQ: send queue
-  RQ: receive queue
+  PM: performance manager
   PSN: packet sequence numbers
+  QP: queue pair
+  QPN: queue pair number
   RC: reliable connected
-  RDC: reliable datagram channel
   RD: reliable datagram
+  RDC: reliable datagram channel
+  RDMA: remote direct memory access
+  RQ: receive queue
+  SLID: source port local id
+  SM: subnet manager
+  SQ: send queue
+  TCA: target channel adapter
   UD: unreliable datagram
   WR: work request
-  IPD: inter packet delay
+  RDC: reliable datagram channel
+  EEC: end-to-end context for end to end pipelines in RDC
+* Service Types
+** Connected services
+   Need connection establishment
+   QPs are initialized with information about each other and stored in the QPs context
+   Are private, point-to-point communication channels
+   The two QPs can then only send messages to each other
+*** REliable Connected (RC):
+    The responder QL's RQ logic must respond to each request packet with a n ACK or Nak packet
+*** Unreliable Connected (UC):
+    Same as RC but the responder does not send back a response to each request packet
+** Datagram services
+   can transfer messages to different QPs
+*** Reliable datagram (RD):
+    requires a connection establishment between two CAs (and not QPs)
+    EEC contains send and receive logic but not SQ or RQ. It "represents" it's local SQ and RQ in RD mode
+    has an Ack/Nack protocol
+*** Unreliable datagram (UD):
+    doesn't require connection
+    QP attached to a port
+    Destination specified in WR
+    no Ack/Nack
+    no PSN checking
+    used for MADS
+** Non-IBA services
+*** Raw IPV6 Datagram
+*** Raw EtherType Datagram
+* IBA Stack for message transmission and reception
+** Upper layer protocols
+   not a part of the IB implementation. Software application or driver that uses infiniband
+** Verb layer
+   software calls the verbs to do:
+   - HCA management
+   - QP management
+   - EEC managment
+   - post work requests
+   - handle message transfer completions
+** Transport layer
+   responsible for sending and receiving messages across the fabric
+** Network layer
+   responsible for routing
+** Link layer
+   responsible for sending and receiving data across the fabric, including addressing, buffering, error control and packet switching
+** Physical layer
+   responsible for sending data across the fabric at the bit-level
+
