@@ -1,0 +1,27 @@
+* Acronyms
+  CA: channel adapter
+  HCA: Host channel adapter
+  TCA: target channel adapter
+  LRH: local router header
+  GRH: global router header
+  DLID: destination port local id
+  SLID: source port local id
+  BTH: base transport header
+  IBA: infiniband architecture
+  RDMA: remote direct memory access
+  SM: subnet manager
+  PM: performance manager
+  DM: device manager
+  CM: communications manager
+  MA: management agent
+  MADS: management datagrams
+  QP: queue pair
+  SQ: send queue
+  RQ: receive queue
+  PSN: packet sequence numbers
+  RC: reliable connected
+  RDC: reliable datagram channel
+  RD: reliable datagram
+  UD: unreliable datagram
+  WR: work request
+  IPD: inter packet delay
